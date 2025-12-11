@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>恋愛・花タイプ診断</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body {
+      font-family: 'Segoe UI','Hiragino Kaku Gothic ProN','Meiryo',sans-serif;
+      background: #fff6ea;
+      margin: 0;
+      padding: 0;
+    }
+    .content {
+      background: #ffffffdd;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+    h1 { text-align: center; color: #c45ca0; margin-bottom: 1.5em; }
+    .question { margin-top: 1.5em; }
+    .choices label { display: block; margin-bottom: 8px; }
+    button { margin-top: 28px; padding: 0.7em 2em; font-size: 1.1em;
+             border-radius: 8px; border: none; background: #e14e9a; color: #fff;
+             cursor: pointer; width: 100%; }
+    #result {
+      margin-top: 2em; padding: 1.2em; background: #fff; border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1); font-size: 1.1em;
+    }
+    #result img { width: 100%; margin-top: 1em; border-radius: 10px; }
+  </style>
+</head>
+<body>
+
+<div class="content">
+  <h1>恋愛「花タイプ」診断</h1>
+
+  <form id="flowerForm">
+    <h2>質問【☆】</h2>
+
+    <div class="question">
+      <div>☆Q1「恋をすると、好きな人のことをつい考える時間が多くなる」</div>
+      <div class="choices">
+        <label><input type="radio" name="q1" value="A" required> A：はい</label>
+        <label><input type="radio" name="q1" value="B"> B：どっちともいえない</label>
+        <label><input type="radio" name="q1" value="C"> C：いいえ</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <div>☆Q2「恋人とは、意見や不満があるたびに話し合う時間が欲しい」</div>
+      <div class="choices">
+        <label><input type="radio" name="q2" value="A" required> A：はい</label>
+        <label><input type="radio" name="q2" value="B"> B：どっちともいえない</label>
+        <label><input type="radio" name="q2" value="C"> C：いいえ</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <div>☆Q3「好きな人ができると、その人との時間を優先する」</div>
+      <div class="choices">
+        <label><input type="radio" name="q3" value="A" required> A：はい</label>
+        <label><input type="radio" name="q3" value="B"> B：どっちともいえない</label>
+        <label><input type="radio" name="q3" value="C"> C：いいえ</label>
+      </div>
+    </div>
+
+    <h2 style="margin-top:40px;">質問【♡】</h2>
+
+    <div class="question">
+      <div>♡Q4「こまめに連絡を取り合えると安心する」</div>
+      <div class="choices">
+        <label><input type="radio" name="q4" value="A" required> A：はい</label>
+        <label><input type="radio" name="q4" value="B"> B：どっちともいえない</label>
+        <label><input type="radio" name="q4" value="C"> C：いいえ</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <div>♡Q5「会わない時間が長いと不安になる」</div>
+      <div class="choices">
+        <label><input type="radio" name="q5" value="A" required> A：はい</label>
+        <label><input type="radio" name="q5" value="B"> B：どっちともいえない</label>
+        <label><input type="radio" name="q5" value="C"> C：いいえ</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <div>♡Q6「一緒に過ごす時間が多いほうが嬉しい」</div>
+      <div class="choices">
+        <label><input type="radio" name="q6" value="A" required> A：はい</label>
+        <label><input type="radio" name="q6" value="B"> B：どっちともいえない</label>
+        <label><input type="radio" name="q6" value="C"> C：いいえ</label>
+      </div>
+    </div>
+
+    <button type="submit">診断する</button>
+  </form>
+
+  <div id="result"></div>
+</div>
+
+<script>
+document.getElementById("flowerForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const starAnswers = [
+    document.querySelector('input[name="q1"]:checked').value,
+    document.querySelector('input[name="q2"]:checked').value,
+    document.querySelector('input[name="q3"]:checked').value
+  ];
+  const heartAnswers = [
+    document.querySelector('input[name="q4"]:checked').value,
+    document.querySelector('input[name="q5"]:checked').value,
+    document.querySelector('input[name="q6"]:checked').value
+  ];
+
+  function freq(arr){
+    let c = {A:0,B:0,C:0};
+    arr.forEach(v=>c[v]++);
+    let m = Math.max(c.A,c.B,c.C);
+    let t = Object.keys(c).filter(k=>c[k]===m);
+    return t.length===1 ? t[0] : "TIE";
+  }
+
+  let star = freq(starAnswers);
+  let heart = freq(heartAnswers);
+
+  let html = "<h3>診断結果</h3>";
+
+  // ★ 同数なら追加質問を生成
+  if(star === "TIE"){
+    html += `
+      <h4>☆追加質問：</h4>
+      <p>あなたの“恋の始まり方”に近いのは？</p>
+      <label><input type="radio" name="starExtra" value="A"> A：一目惚れ・急速に盛り上がる</label><br>
+      <label><input type="radio" name="starExtra" value="B"> B：いつの間にか自然に恋が始まる</label><br>
+      <label><input type="radio" name="starExtra" value="C"> C：軽いきっかけから芽生える</label><br><br>
+    `;
+  }
+
+  if(heart === "TIE"){
+    html += `
+      <h4>♡追加質問：</h4>
+      <p>恋人との理想の時間は？</p>
+      <label><input type="radio" name="heartExtra" value="A"> A：常に一緒に濃い時間</label><br>
+      <label><input type="radio" name="heartExtra" value="B"> B：一緒の日と別行動を気分で選びたい</label><br>
+      <label><input type="radio" name="heartExtra" value="C"> C：会う時は濃く、一人時間も大切</label><br><br>
+    `;
+  }
+
+  // ★ 追加質問が必要ならボタンを表示
+  if(star==="TIE" || heart==="TIE"){
+    html += `<button id="extraBtn">追加質問の結果を見る</button>`;
+    document.getElementById("result").innerHTML = html;
+
+    document.getElementById("extraBtn").onclick = function(){
+
+      if(star === "TIE"){
+        star = document.querySelector('input[name="starExtra"]:checked')?.value;
+      }
+      if(heart === "TIE"){
+        heart = document.querySelector('input[name="heartExtra"]:checked')?.value;
+      }
+
+      showFinal(star, heart);
+    };
+
+    return;
+  }
+
+  showFinal(star, heart);
+
+  function showFinal(star, heart){
+    let finalHTML = `
+      <h3>最終診断結果</h3>
+      <p>☆（恋の始まり方） → <strong>${star}</strong></p>
+      <p>♡（理想の関係性） → <strong>${heart}</strong></p>
+      <img src="https://wp.app-clear.com/wp-content/uploads/2025/01/67ad661d3ea9cf282502199c_1765335738.297035_1765335738462-1.png">
+    `;
+    document.getElementById("result").innerHTML = finalHTML;
+  }
+});
+</script>
+
+</body>
+</html>
