@@ -1,110 +1,3 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<title>恋愛・花タイプ診断</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<style>
-body {
-  font-family:'Hiragino Kaku Gothic ProN','Meiryo',sans-serif;
-  background:#fff6ea;
-  margin:0;
-}
-
-.content{
-  max-width:600px;
-  margin:30px auto;
-  padding:20px;
-  background:#fff;
-  border-radius:16px;
-  box-shadow:0 4px 16px rgba(0,0,0,0.1);
-}
-
-h1{text-align:center;color:#c45ca0;}
-
-.question{margin-top:20px;}
-label{display:block;margin-bottom:6px;}
-
-button{
-  margin-top:25px;
-  padding:12px;
-  width:100%;
-  border:none;
-  border-radius:10px;
-  background:#ff5ca8;
-  color:#fff;
-  font-size:16px;
-  font-weight:bold;
-}
-
-#result{
-  margin-top:25px;
-}
-</style>
-</head>
-
-<body>
-
-<div class="content">
-<h1>恋愛 花タイプ診断</h1>
-
-<form id="flowerForm">
-
-<h3>☆恋の始まり方</h3>
-
-<div class="question">
-<p>恋をすると相手を考える時間が増える</p>
-<label><input type="radio" name="q1" value="A" required>はい</label>
-<label><input type="radio" name="q1" value="B">どちらとも言えない</label>
-<label><input type="radio" name="q1" value="C">いいえ</label>
-</div>
-
-<div class="question">
-<p>恋人とは話し合いを大切にしたい</p>
-<label><input type="radio" name="q2" value="A" required>はい</label>
-<label><input type="radio" name="q2" value="B">どちらとも言えない</label>
-<label><input type="radio" name="q2" value="C">いいえ</label>
-</div>
-
-<div class="question">
-<p>好きな人を優先する</p>
-<label><input type="radio" name="q3" value="A" required>はい</label>
-<label><input type="radio" name="q3" value="B">どちらとも言えない</label>
-<label><input type="radio" name="q3" value="C">いいえ</label>
-</div>
-
-<h3>♡理想の関係</h3>
-
-<div class="question">
-<p>こまめに連絡したい</p>
-<label><input type="radio" name="q4" value="A" required>はい</label>
-<label><input type="radio" name="q4" value="B">どちらとも言えない</label>
-<label><input type="radio" name="q4" value="C">いいえ</label>
-</div>
-
-<div class="question">
-<p>会えないと不安になる</p>
-<label><input type="radio" name="q5" value="A" required>はい</label>
-<label><input type="radio" name="q5" value="B">どちらとも言えない</label>
-<label><input type="radio" name="q5" value="C">いいえ</label>
-</div>
-
-<div class="question">
-<p>一緒の時間が多い方がいい</p>
-<label><input type="radio" name="q6" value="A" required>はい</label>
-<label><input type="radio" name="q6" value="B">どちらとも言えない</label>
-<label><input type="radio" name="q6" value="C">いいえ</label>
-</div>
-
-<button type="submit">診断する</button>
-
-</form>
-
-<div id="result"></div>
-
-</div>
-
 <script>
 document.getElementById("flowerForm").addEventListener("submit", function(e){
 e.preventDefault();
@@ -172,25 +65,96 @@ showFinal(star,heart);
 function showFinal(star,heart){
 
 const map={
-"A_A":"🥀バラ：愛が深く一途",
-"A_B":"🏵️ガーベラ：優しく誠実",
-"A_C":"🌺ダリア：静かで深い愛",
-"B_A":"🪻ラベンダー：癒し系",
-"B_B":"🌼コスモス：バランス型",
-"B_C":"🪷アザミ：慎重タイプ",
-"C_A":"🌻ひまわり：明るく直感型",
-"C_B":"🌷チューリップ：自然体",
-"C_C":"🌸さくら：繊細で自由"
+
+"A_A":`🥀花タイプ｜バラ【☆A】【♡A】<br>
+愛が深く、まっすぐで一度好きになると揺らぎにくいタイプ<br>
+恋の始まり：直感で惹かれやすく一気に気持ちが高まりやすい<br>
+長所：一途・情熱的、誰よりも深い愛を注ぐことができる<br>
+短所：不安が強くなるほど依存しやすい<br>
+理想の交際：頻繁に会う・話すなど濃い繋がり<br>
+魅力：深い愛情・包容力<br><br>
+✅貴方からの愛の熱量をどれくらい感じている？`,
+
+"A_B":`🏵️花タイプ｜ガーベラ【☆A】【♡B】<br>
+まじめで前向き、愛情も深いタイプ<br>
+恋の始まり：時間をかけてじわじわ深まる<br>
+長所：健気・優しい・支える力<br>
+短所：尽くしすぎて依存しやすい<br>
+理想の交際：会う時は濃く、会えない時は尊重<br>
+魅力：誠実・前向きさ<br><br>
+✅貴方の優しさをどう受け取ってる？`,
+
+"A_C":`🌺花タイプ｜ダリア【☆A】【♡C】<br>
+静かに深く愛する大人タイプ<br>
+恋の始まり：慎重で信頼重視<br>
+長所：ブレない愛情<br>
+短所：気持ちが伝わりにくい<br>
+理想の交際：落ち着いた距離感<br>
+魅力：芯の強さ・神秘性<br><br>
+✅気持ちはちゃんと伝わっている？`,
+
+"B_A":`🪻花タイプ｜ラベンダー【☆B】【♡A】<br>
+穏やかで優しい癒しタイプ<br>
+恋の始まり：ゆっくり惹かれる<br>
+長所：気配り・安心感<br>
+短所：遠慮して本音を出せない<br>
+理想の交際：寄り添える関係<br>
+魅力：柔らかさ・安定感<br><br>
+✅もっとこうしてもいいのにと思うことは？`,
+
+"B_B":`🌼花タイプ｜コスモス【☆B】【♡B】<br>
+自然体で恋を育てるバランス型<br>
+恋の始まり：居心地の良さから発展<br>
+長所：安定した関係を作れる<br>
+短所：流されやすい<br>
+理想の交際：ちょうどいい距離感<br>
+魅力：調和・自然体<br><br>
+✅今の関係への満足度は？`,
+
+"B_C":`🪷花タイプ｜アザミ【☆B】【♡C】<br>
+自己防衛しながら恋をするタイプ<br>
+恋の始まり：静かに惹かれる<br>
+長所：誠実で芯が強い<br>
+短所：距離を取りすぎる<br>
+理想の交際：距離を保ちつつ深く愛したい<br>
+魅力：奥ゆかしさ・唯一無二<br><br>
+✅心の距離感はどれくらい？`,
+
+"C_A":`🌻花タイプ｜ひまわり【☆C】【♡A】<br>
+明るくポジティブな恋愛タイプ<br>
+恋の始まり：直感・一目惚れ<br>
+長所：素直・行動力<br>
+短所：勢いで動きすぎる<br>
+理想の交際：連絡頻度高め<br>
+魅力：明るさ・元気<br><br>
+✅素直さはどう受け取られてる？`,
+
+"C_B":`🌷花タイプ｜チューリップ【☆C】【♡B】<br>
+自然体で親しみやすいタイプ<br>
+恋の始まり：徐々に育つ<br>
+長所：柔らかさ・愛嬌<br>
+短所：深い話を避けがち<br>
+理想の交際：気楽な関係<br>
+魅力：可愛げ・安心感<br><br>
+✅本気度はどれくらい伝わってる？`,
+
+"C_C":`🌸花タイプ｜さくら【☆C】【♡C】<br>
+繊細で自由な恋タイプ<br>
+恋の始まり：静かに惹かれる<br>
+長所：独立心・軽やかさ<br>
+短所：本音を出さない<br>
+理想の交際：一人時間も大切にしたい<br>
+魅力：独自性・可憐さ<br><br>
+✅どれくらい理解されてる？`
 };
 
 let text=map[star+"_"+heart];
 
 document.getElementById("result").innerHTML=`
 <h3>あなたのタイプ</h3>
-<p>${text}</p>
 
-<div style="margin-top:15px;padding:15px;background:#fff0f6;border-radius:10px;">
-👉相手はどう感じている？
+<div style="margin-top:10px;padding:15px;background:#fff0f6;border-radius:10px;line-height:1.8;">
+${text}
 </div>
 
 <div style="margin-top:15px;padding:15px;border:1px dashed #ff8ad6;border-radius:10px;">
@@ -208,6 +172,3 @@ style="background:#ff5ca8;color:#fff;padding:12px 30px;border-radius:20px;text-d
 }
 });
 </script>
-
-</body>
-</html>
