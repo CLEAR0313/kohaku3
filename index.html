@@ -10,33 +10,32 @@ e.preventDefault();
 function count(arr){
 const c={A:0,B:0,C:0};
 arr.forEach(v=>c[v]++);
-return Object.keys(c).reduce((a,b)=>c[a]>c[b]?a:b);
+return Object.keys(c).reduce((a,b)=>c[a]>=c[b]?a:b);
 }
 
-const star = count([form.q1.value,form.q2.value,form.q3.value]);
-const heart = count([form.q4.value,form.q5.value,form.q6.value]);
+const star = count([form.q1.value, form.q2.value, form.q3.value]);
+const heart = count([form.q4.value, form.q5.value, form.q6.value]);
 
-const map = {
+const data = {
 
-"A_A": `【☆A】【♡A】
+"A_A":`【☆A】【♡A】
 🌹バラ：愛が深く、まっすぐで一度好きになると揺らぎにくいタイプ
 
 恋の始まり：直感で惹かれやすく一気に気持ちが高まりやすい
 
 長所：一途・情熱的、誰よりも深い愛を注ぐことができる
 
-短所：愛が深いぶん不安にも揺らぎやすく、不安が強くなるほど依存しやすい
-
+短所：愛が深いぶん不安にも揺れやすく、不安が強くなるほど依存しやすい
 理想の交際：頻繁に会う・話すなど濃い繋がりが安心する
 
 魅力：深い愛情・一途さ・包容力
 
+
 ✓ここで気になる質問👀
 彼は貴方からの愛の熱量をどれくらい(どのように)感じていると思う？`,
 
-"A_B": `【☆A】【♡B】
-🏵️ガーベラ：まじめで前向き、愛情も深く相手のペースも大事にしたいタイプ
-
+"A_B":`【☆A】【♡B】
+🏵️ガーベラ ：まじめで前向き、愛情も深く相手のペースも大事にしたいタイプ
 恋の始まり：時間をかけてじわじわと気持ちが深まる
 
 長所：健気で優しく相手を支える力がある
@@ -50,10 +49,10 @@ const map = {
 ✓ここで気になる質問👀
 彼は貴方からの優しさをどう受け取っていると思う？`,
 
-"A_C": `【☆A】【♡C】
+"A_C":`【☆A】【♡C】
 🌺ダリア：愛は深いが距離感は大人、静かに深く愛するタイプ
 
-恋の始まり：慎重で時間をかける、信頼が積もるほど惹かれる
+恋の始まり：慎重で時間をかけてじわじわ惹かれる
 
 長所：ブレない愛情、特別に思う相手には長く寄り添うことができる
 
@@ -66,7 +65,7 @@ const map = {
 ✓ここで気になる質問👀
 彼に貴方の気持ちはちゃんと伝わっていると思う？`,
 
-"B_A": `【☆B】【♡A】
+"B_A":`【☆B】【♡A】
 🪻ラベンダー：穏やかで優しく、恋人の心に寄り添うことができる癒しタイプ
 
 恋の始まり：優しさに触れると心がほどけ、ゆっくり惹かれていく
@@ -82,7 +81,7 @@ const map = {
 ✓ここで気になる質問👀
 彼に対してもっとこうしてればよかったのに…と思うことはある？`,
 
-"B_B": `【☆B】【♡B】
+"B_B":`【☆B】【♡B】
 🌼コスモス：バランス感覚が良く、自然体で恋を育てることができるタイプ
 
 恋の始まり：「なんか居心地いいな」からゆっくり恋に発展する
@@ -99,7 +98,7 @@ const map = {
 あなたからみて今の関係への満足度はどれくらいですか？
 また、彼から見てあなたとの関係値はどうだと思う？`,
 
-"B_C": `【☆B】【♡C】
+"B_C":`【☆B】【♡C】
 🪷アザミ：本当は優しく愛が深いのに、自己防衛しながら恋をするタイプ
 
 恋の始まり：静かに気づく、いつの間にか惹かれているパターン
@@ -115,7 +114,7 @@ const map = {
 ✓ここで気になる質問👀
 彼が貴方に感じている心の距離感はどれくらいだと思う？`,
 
-"C_A": `【☆C】【♡A】
+"C_A":`【☆C】【♡A】
 🌻ひまわり：明るくて素直、恋にポジティブで何事もスピード感があるタイプ
 
 恋の始まり：一目惚れや直感で恋の火がつきやすい
@@ -131,7 +130,7 @@ const map = {
 ✓ここで気になる質問👀
 彼は貴方の素直なところをどう受け取っていると思う？`,
 
-"C_B": `【☆C】【♡B】
+"C_B":`【☆C】【♡B】
 🌷チューリップ：親しみやすく、恋にも自然体のままはじめていくタイプ
 
 恋の始まり：「いいな」の積み重ねで静かに恋が育っていく
@@ -147,7 +146,7 @@ const map = {
 ✓ここで気になる質問👀
 あなたはお相手にどれくらい本気度(真剣度)が伝わってると思う？`,
 
-"C_C": `【☆C】【♡C】
+"C_C":`【☆C】【♡C】
 🌸さくら：儚げで繊細、だけど自分の世界を大切にしながら自由に恋するタイプ
 
 恋の始まり：ひっそり静かに心が惹かれていく
@@ -169,24 +168,23 @@ const key = star + "_" + heart;
 result.innerHTML = `
 <h3>あなたの診断結果</h3>
 
-<div style="white-space:pre-line;background:#fff0f6;padding:18px;border-radius:12px;line-height:1.8;">
-${map[key]}
+<div style="white-space:pre-line;background:#fff0f6;padding:15px;border-radius:10px;">
+${data[key]}
 </div>
 
-<p style="margin-top:15px;">
+<div style="margin-top:15px;">
 この答えは診断だけでは分かりません💦<br>
 鑑定師様があなた専用に読み解きます🔮
-</p>
+</div>
 
 <div style="text-align:center;margin-top:20px;">
 <a href="https://app-clear.com/open?act=otherprofile-67ad661d3ea9cf282502199c"
-style="background:#ff5ca8;color:#fff;padding:14px 30px;border-radius:30px;text-decoration:none;">
+style="background:#ff5ca8;color:#fff;padding:14px 36px;border-radius:30px;text-decoration:none;">
 答えを見に行く🔍
 </a>
 </div>
 `;
 
 });
-
 });
 </script>
