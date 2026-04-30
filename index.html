@@ -22,69 +22,103 @@ document.querySelector('input[name="q5"]:checked').value,
 document.querySelector('input[name="q6"]:checked').value
 ]);
 
-let html="<h3>診断結果</h3>";
-
-if(star==="TIE"){
-html+=`
-<p>☆追加質問</p>
-<label><input type="radio" name="starExtra" value="A">一気に盛り上がる</label>
-<label><input type="radio" name="starExtra" value="B">自然に始まる</label>
-<label><input type="radio" name="starExtra" value="C">きっかけで始まる</label>
-`;
-}
-
-if(heart==="TIE"){
-html+=`
-<p>♡追加質問</p>
-<label><input type="radio" name="heartExtra" value="A">常に一緒</label>
-<label><input type="radio" name="heartExtra" value="B">バランス</label>
-<label><input type="radio" name="heartExtra" value="C">距離も大事</label>
-`;
-}
-
-if(star==="TIE"||heart==="TIE"){
-html+=`<button id="extraBtn">結果を見る</button>`;
-document.getElementById("result").innerHTML=html;
-
-document.getElementById("extraBtn").onclick=function(){
-if(star==="TIE"){
-star=document.querySelector('input[name="starExtra"]:checked')?.value;
-if(!star)return alert("回答してください");
-}
-if(heart==="TIE"){
-heart=document.querySelector('input[name="heartExtra"]:checked')?.value;
-if(!heart)return alert("回答してください");
-}
-showFinal(star,heart);
-};
-return;
-}
-
-showFinal(star,heart);
-
 function showFinal(star,heart){
 
 const map={
-"C_C":`🌸花タイプ｜さくら【☆C】【♡C】<br>
-繊細で自由な恋タイプ<br>
-長所：独立心・軽やかさ<br>
+"A_A":"🥀バラ",
+"A_B":"🏵️ガーベラ",
+"A_C":"🌺ダリア",
+"B_A":"🪻ラベンダー",
+"B_B":"🌼コスモス",
+"B_C":"🪷アザミ",
+"C_A":"🌻ひまわり",
+"C_B":"🌷チューリップ",
+"C_C":"🌸さくら"
+};
+
+const detailMap={
+"A_A":`愛が深く、まっすぐで一度好きになると揺らぎにくいタイプ<br>
+恋の始まり：直感で惹かれやすく一気に気持ちが高まりやすい<br>
+長所：一途・情熱的、誰よりも深い愛を注ぐことができる<br>
+短所：不安が強くなるほど依存しやすい<br>
+理想：濃い繋がりが安心<br>
+魅力：深い愛情・包容力<br><br>
+✅貴方からの愛の熱量をどれくらい感じているの？`,
+
+"A_B":`まじめで前向き、相手のペースも大事にするタイプ<br>
+恋の始まり：時間をかけて深まる<br>
+長所：健気で優しい<br>
+短所：尽くしすぎて依存しやすい<br>
+理想：会う時は濃く、普段は尊重<br>
+魅力：誠実さ<br><br>
+✅貴方の優しさをどう受け取ってる？`,
+
+"A_C":`愛は深いが距離感は大人<br>
+恋の始まり：慎重タイプ<br>
+長所：ブレない愛情<br>
+短所：気持ちが伝わりにくい<br>
+理想：落ち着いた関係<br>
+魅力：神秘性・深い絆<br><br>
+✅気持ちはちゃんと伝わってる？`,
+
+"B_A":`穏やかで癒し系タイプ<br>
+恋の始まり：ゆっくり惹かれる<br>
+長所：優しさと気配り<br>
+短所：遠慮しがち<br>
+理想：安心できる関係<br>
+魅力：癒し・安定感<br><br>
+✅もっとこうしてもいいのにと思われてる？`,
+
+"B_B":`バランス感覚が優秀<br>
+恋の始まり：自然に恋へ<br>
+長所：安定した関係を作れる<br>
+短所：流されやすい<br>
+理想：ちょうどいい距離感<br>
+魅力：調和<br><br>
+✅今の関係に満足してる？`,
+
+"B_C":`慎重で防御型の恋<br>
+恋の始まり：気づいたら好き<br>
+長所：誠実で芯がある<br>
+短所：距離を取りすぎる<br>
+理想：距離を保ちつつ愛したい<br>
+魅力：奥ゆかしさ<br><br>
+✅心の距離どれくらい？`,
+
+"C_A":`明るく直感型<br>
+恋の始まり：一目惚れタイプ<br>
+長所：ポジティブで素直<br>
+短所：勢い重視<br>
+理想：頻繁な関係<br>
+魅力：行動力<br><br>
+✅その素直さどう思われてる？`,
+
+"C_B":`自然体で恋するタイプ<br>
+恋の始まり：徐々に発展<br>
+長所：親しみやすい<br>
+短所：深い話が苦手<br>
+理想：気楽な関係<br>
+魅力：柔らかさ<br><br>
+✅本気度伝わってる？`,
+
+"C_C":`繊細で自由な恋<br>
+恋の始まり：静かに惹かれる<br>
+長所：自立している<br>
 短所：本音を出さない<br>
+理想：自由な関係<br>
 魅力：独自性<br><br>
 ✅どれくらい理解されてる？`
 };
 
-let key = star + "_" + heart;
-let text = map[key];
-
-if(!text){
-text="診断結果を表示できません";
-}
+let type=map[star+"_"+heart];
+let detail=detailMap[star+"_"+heart];
 
 document.getElementById("result").innerHTML=`
 <h3>あなたのタイプ</h3>
+<p style="font-size:20px;font-weight:bold;">${type}</p>
 
-<div style="margin-top:10px;padding:15px;background:#fff0f6;border-radius:10px;line-height:1.8;">
-${text}
+<div style="margin-top:15px;padding:15px;background:#fff0f6;border-radius:10px;line-height:1.8;">
+${detail}
 </div>
 
 <div style="margin-top:15px;padding:15px;border:1px dashed #ff8ad6;border-radius:10px;">
@@ -101,5 +135,6 @@ style="background:#ff5ca8;color:#fff;padding:12px 30px;border-radius:20px;text-d
 `;
 }
 
+showFinal(star,heart);
 });
 </script>
