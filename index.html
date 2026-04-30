@@ -1,115 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>恋愛・花タイプ診断</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<style>
+body {
+  font-family:'Hiragino Kaku Gothic ProN','Meiryo',sans-serif;
+  background:#fff6ea;
+  margin:0;
+}
+
+.content{
+  max-width:600px;
+  margin:30px auto;
+  padding:20px;
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 4px 16px rgba(0,0,0,0.1);
+}
+
+h1{text-align:center;color:#c45ca0;}
+
+.question{margin-top:20px;}
+label{display:block;margin-bottom:6px;}
+
+button{
+  margin-top:25px;
+  padding:12px;
+  width:100%;
+  border:none;
+  border-radius:10px;
+  background:#ff5ca8;
+  color:#fff;
+  font-size:16px;
+  font-weight:bold;
+}
+
+#result{
+  margin-top:25px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="content">
+<h1>恋愛 花タイプ診断</h1>
+
+<form id="flowerForm">
+
+<h3>☆恋の始まり方</h3>
+
+<div class="question">
+<p>恋をすると相手を考える時間が増える</p>
+<label><input type="radio" name="q1" value="A" required>はい</label>
+<label><input type="radio" name="q1" value="B">どちらとも言えない</label>
+<label><input type="radio" name="q1" value="C">いいえ</label>
+</div>
+
+<div class="question">
+<p>恋人とは話し合いを大切にしたい</p>
+<label><input type="radio" name="q2" value="A" required>はい</label>
+<label><input type="radio" name="q2" value="B">どちらとも言えない</label>
+<label><input type="radio" name="q2" value="C">いいえ</label>
+</div>
+
+<div class="question">
+<p>好きな人を優先する</p>
+<label><input type="radio" name="q3" value="A" required>はい</label>
+<label><input type="radio" name="q3" value="B">どちらとも言えない</label>
+<label><input type="radio" name="q3" value="C">いいえ</label>
+</div>
+
+<h3>♡理想の関係</h3>
+
+<div class="question">
+<p>こまめに連絡したい</p>
+<label><input type="radio" name="q4" value="A" required>はい</label>
+<label><input type="radio" name="q4" value="B">どちらとも言えない</label>
+<label><input type="radio" name="q4" value="C">いいえ</label>
+</div>
+
+<div class="question">
+<p>会えないと不安になる</p>
+<label><input type="radio" name="q5" value="A" required>はい</label>
+<label><input type="radio" name="q5" value="B">どちらとも言えない</label>
+<label><input type="radio" name="q5" value="C">いいえ</label>
+</div>
+
+<div class="question">
+<p>一緒の時間が多い方がいい</p>
+<label><input type="radio" name="q6" value="A" required>はい</label>
+<label><input type="radio" name="q6" value="B">どちらとも言えない</label>
+<label><input type="radio" name="q6" value="C">いいえ</label>
+</div>
+
+<button type="submit">診断する</button>
+
+</form>
+
+<div id="result"></div>
+
+</div>
+
 <script>
 document.getElementById("flowerForm").addEventListener("submit", function(e){
-  e.preventDefault();
+e.preventDefault();
 
-  const starAnswers = [
-    document.querySelector('input[name="q1"]:checked').value,
-    document.querySelector('input[name="q2"]:checked').value,
-    document.querySelector('input[name="q3"]:checked').value
-  ];
-  const heartAnswers = [
-    document.querySelector('input[name="q4"]:checked').value,
-    document.querySelector('input[name="q5"]:checked').value,
-    document.querySelector('input[name="q6"]:checked').value
-  ];
+function freq(arr){
+let c={A:0,B:0,C:0};
+arr.forEach(v=>c[v]++);
+let m=Math.max(c.A,c.B,c.C);
+let t=Object.keys(c).filter(k=>c[k]===m);
+return t.length===1?t[0]:"TIE";
+}
 
-  function freq(arr){
-    let c = {A:0,B:0,C:0};
-    arr.forEach(v=>c[v]++);
-    let m = Math.max(c.A,c.B,c.C);
-    let t = Object.keys(c).filter(k=>c[k]===m);
-    return t.length===1 ? t[0] : "TIE";
-  }
+let star=freq([
+document.querySelector('input[name="q1"]:checked').value,
+document.querySelector('input[name="q2"]:checked').value,
+document.querySelector('input[name="q3"]:checked').value
+]);
 
-  let star = freq(starAnswers);
-  let heart = freq(heartAnswers);
+let heart=freq([
+document.querySelector('input[name="q4"]:checked').value,
+document.querySelector('input[name="q5"]:checked').value,
+document.querySelector('input[name="q6"]:checked').value
+]);
 
-  if(star==="TIE" || heart==="TIE"){
-    document.getElementById("result").innerHTML = "追加質問に対応してください";
-    return;
-  }
+let html="<h3>診断結果</h3>";
 
-  showFinal(star, heart);
+if(star==="TIE"){
+html+=`
+<p>☆追加質問</p>
+<label><input type="radio" name="starExtra" value="A">一気に盛り上がる</label>
+<label><input type="radio" name="starExtra" value="B">自然に始まる</label>
+<label><input type="radio" name="starExtra" value="C">きっかけで始まる</label>
+`;
+}
 
-  function showFinal(star, heart){
+if(heart==="TIE"){
+html+=`
+<p>♡追加質問</p>
+<label><input type="radio" name="heartExtra" value="A">常に一緒</label>
+<label><input type="radio" name="heartExtra" value="B">バランス</label>
+<label><input type="radio" name="heartExtra" value="C">距離も大事</label>
+`;
+}
 
-    const resultMap = {
+if(star==="TIE"||heart==="TIE"){
+html+=`<button id="extraBtn">結果を見る</button>`;
+document.getElementById("result").innerHTML=html;
 
-      "A_A": `🥀花タイプ｜バラ【☆A】【♡A】
-愛が深く、まっすぐで一度好きになると揺らぎにくいタイプ
-恋の始まり：直感で惹かれやすく一気に気持ちが高まりやすい
-長所：一途・情熱的
-短所：不安になりやすい
-魅力：深い愛情
-👉相手はこの想いをどう感じている？`,
+document.getElementById("extraBtn").onclick=function(){
+if(star==="TIE"){
+star=document.querySelector('input[name="starExtra"]:checked')?.value;
+if(!star)return alert("回答してください");
+}
+if(heart==="TIE"){
+heart=document.querySelector('input[name="heartExtra"]:checked')?.value;
+if(!heart)return alert("回答してください");
+}
+showFinal(star,heart);
+};
+return;
+}
 
-      "A_B": `🏵️花タイプ｜ガーベラ【☆A】【♡B】
-まじめで前向き
-長所：健気・優しい
-短所：尽くしすぎ
-👉優しさはどう伝わってる？`,
+showFinal(star,heart);
 
-      "A_C": `🌺花タイプ｜ダリア【☆A】【♡C】
-静かに深く愛するタイプ
-長所：ブレない愛
-短所：伝わりにくい
-👉気持ちは伝わってる？`,
+function showFinal(star,heart){
 
-      "B_A": `🪻花タイプ｜ラベンダー【☆B】【♡A】
-癒し系タイプ
-👉本音を出せてる？`,
+const map={
+"A_A":"🥀バラ：愛が深く一途",
+"A_B":"🏵️ガーベラ：優しく誠実",
+"A_C":"🌺ダリア：静かで深い愛",
+"B_A":"🪻ラベンダー：癒し系",
+"B_B":"🌼コスモス：バランス型",
+"B_C":"🪷アザミ：慎重タイプ",
+"C_A":"🌻ひまわり：明るく直感型",
+"C_B":"🌷チューリップ：自然体",
+"C_C":"🌸さくら：繊細で自由"
+};
 
-      "B_B": `🌼花タイプ｜コスモス【☆B】【♡B】
-バランス型
-👉今の関係満足してる？`,
+let text=map[star+"_"+heart];
 
-      "B_C": `🪷花タイプ｜アザミ【☆B】【♡C】
-距離を取りがちなタイプ
-👉心の距離どう感じてる？`,
+document.getElementById("result").innerHTML=`
+<h3>あなたのタイプ</h3>
+<p>${text}</p>
 
-      "C_A": `🌻花タイプ｜ひまわり【☆C】【♡A】
-ポジティブタイプ
-👉素直さどう受け取られてる？`,
+<div style="margin-top:15px;padding:15px;background:#fff0f6;border-radius:10px;">
+👉相手はどう感じている？
+</div>
 
-      "C_B": `🌷花タイプ｜チューリップ【☆C】【♡B】
-自然体タイプ
-👉本気度伝わってる？`,
+<div style="margin-top:15px;padding:15px;border:1px dashed #ff8ad6;border-radius:10px;">
+この答えは診断では分かりません<br>
+鑑定師があなた専用に読み解きます
+</div>
 
-      "C_C": `🌸花タイプ｜さくら【☆C】【♡C】
-繊細で自由
-👉どこまで理解されてる？`
-    };
-
-    const key = `${star}_${heart}`;
-    const text = resultMap[key] || "診断結果を表示できません";
-
-    let finalHTML = `
-      <h3>あなたの診断結果</h3>
-      <p>☆ → ${star} / ♡ → ${heart}</p>
-
-      <div style="margin-top:15px; padding:12px; background:#fff0f6; border-radius:10px; line-height:1.7;">
-        ${text.replace(/\n/g,"<br>")}
-      </div>
-
-      <div style="margin-top:20px; padding:14px; background:#fff; border:1px dashed #ff8ad6; border-radius:10px;">
-        <p style="margin:0; font-weight:bold; color:#c8007b;">
-          この答えは“診断だけでは不十分です”
-        </p>
-        <p style="margin-top:8px;">
-          あなた専用の答えは鑑定師が読み解きます🔮
-        </p>
-      </div>
-
-      <div style="text-align:center; margin-top:18px;">
-        <a href="https://app-clear.com/open?act=otherprofile-67ad661d3ea9cf282502199c"
-        style="background:#ff5ca8;color:#fff;padding:12px 32px;border-radius:24px;text-decoration:none;font-weight:bold;">
-        鑑定師に答えを聞く
-        </a>
-      </div>
-    `;
-
-    document.getElementById("result").innerHTML = finalHTML;
-  }
-
+<div style="text-align:center;margin-top:20px;">
+<a href="https://app-clear.com/open?act=otherprofile-67ad661d3ea9cf282502199c"
+style="background:#ff5ca8;color:#fff;padding:12px 30px;border-radius:20px;text-decoration:none;">
+鑑定する
+</a>
+</div>
+`;
+}
 });
 </script>
+
+</body>
+</html>
