@@ -1,107 +1,3 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <title>恋愛・花タイプ診断</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <style>
-    body {
-      font-family: 'Segoe UI','Hiragino Kaku Gothic ProN','Meiryo',sans-serif;
-      background: #fff6ea;
-      margin: 0;
-      padding: 0;
-    }
-    .content {
-      background: #ffffffdd;
-      max-width: 600px;
-      margin: 40px auto;
-      padding: 24px;
-      border-radius: 16px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-    }
-    h1 { text-align: center; color: #c45ca0; margin-bottom: 1.5em; }
-    .question { margin-top: 1.5em; }
-    .choices label { display: block; margin-bottom: 8px; }
-    button { margin-top: 28px; padding: 0.7em 2em; font-size: 1.1em;
-             border-radius: 8px; border: none; background: #e14e9a; color: #fff;
-             cursor: pointer; width: 100%; }
-    #result {
-      margin-top: 2em; padding: 1.2em; background: #fff; border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1); font-size: 1.1em;
-    }
-    #result img { width: 100%; margin-top: 1em; border-radius: 10px; }
-  </style>
-</head>
-<body>
-
-<div class="content">
-  <h1>恋愛「花タイプ」診断</h1>
-
-  <form id="flowerForm">
-    <h2>質問【☆】</h2>
-
-    <div class="question">
-      <div>☆Q1「恋をすると、好きな人のことをつい考える時間が多くなる」</div>
-      <div class="choices">
-        <label><input type="radio" name="q1" value="A" required> A：はい</label>
-        <label><input type="radio" name="q1" value="B"> B：どっちともいえない</label>
-        <label><input type="radio" name="q1" value="C"> C：いいえ</label>
-      </div>
-    </div>
-
-    <div class="question">
-      <div>☆Q2「恋人とは、意見や不満があるたびに話し合う時間が欲しい」</div>
-      <div class="choices">
-        <label><input type="radio" name="q2" value="A" required> A：はい</label>
-        <label><input type="radio" name="q2" value="B"> B：どっちともいえない</label>
-        <label><input type="radio" name="q2" value="C"> C：いいえ</label>
-      </div>
-    </div>
-
-    <div class="question">
-      <div>☆Q3「好きな人ができると、その人との時間を優先する」</div>
-      <div class="choices">
-        <label><input type="radio" name="q3" value="A" required> A：はい</label>
-        <label><input type="radio" name="q3" value="B"> B：どっちともいえない</label>
-        <label><input type="radio" name="q3" value="C"> C：いいえ</label>
-      </div>
-    </div>
-
-    <h2 style="margin-top:40px;">質問【♡】</h2>
-
-    <div class="question">
-      <div>♡Q4「こまめに連絡を取り合えると安心する」</div>
-      <div class="choices">
-        <label><input type="radio" name="q4" value="A" required> A：はい</label>
-        <label><input type="radio" name="q4" value="B"> B：どっちともいえない</label>
-        <label><input type="radio" name="q4" value="C"> C：いいえ</label>
-      </div>
-    </div>
-
-    <div class="question">
-      <div>♡Q5「会わない時間が長いと不安になる」</div>
-      <div class="choices">
-        <label><input type="radio" name="q5" value="A" required> A：はい</label>
-        <label><input type="radio" name="q5" value="B"> B：どっちともいえない</label>
-        <label><input type="radio" name="q5" value="C"> C：いいえ</label>
-      </div>
-    </div>
-
-    <div class="question">
-      <div>♡Q6「一緒に過ごす時間が多いほうが嬉しい」</div>
-      <div class="choices">
-        <label><input type="radio" name="q6" value="A" required> A：はい</label>
-        <label><input type="radio" name="q6" value="B"> B：どっちともいえない</label>
-        <label><input type="radio" name="q6" value="C"> C：いいえ</label>
-      </div>
-    </div>
-
-    <button type="submit">診断する</button>
-  </form>
-
-  <div id="result"></div>
-</div>
-
 <script>
 document.getElementById("flowerForm").addEventListener("submit", function(e){
   e.preventDefault();
@@ -128,62 +24,92 @@ document.getElementById("flowerForm").addEventListener("submit", function(e){
   let star = freq(starAnswers);
   let heart = freq(heartAnswers);
 
-  let html = "<h3>診断結果</h3>";
-
-  // ★ 同数なら追加質問を生成
-  if(star === "TIE"){
-    html += `
-      <h4>☆追加質問：</h4>
-      <p>あなたの“恋の始まり方”に近いのは？</p>
-      <label><input type="radio" name="starExtra" value="A"> A：一目惚れ・急速に盛り上がる</label><br>
-      <label><input type="radio" name="starExtra" value="B"> B：いつの間にか自然に恋が始まる</label><br>
-      <label><input type="radio" name="starExtra" value="C"> C：軽いきっかけから芽生える</label><br><br>
-    `;
-  }
-
-  if(heart === "TIE"){
-    html += `
-      <h4>♡追加質問：</h4>
-      <p>恋人との理想の時間は？</p>
-      <label><input type="radio" name="heartExtra" value="A"> A：常に一緒に濃い時間</label><br>
-      <label><input type="radio" name="heartExtra" value="B"> B：一緒の日と別行動を気分で選びたい</label><br>
-      <label><input type="radio" name="heartExtra" value="C"> C：会う時は濃く、一人時間も大切</label><br><br>
-    `;
-  }
-
-  // ★ 追加質問が必要ならボタンを表示
   if(star==="TIE" || heart==="TIE"){
-    html += `<button id="extraBtn">追加質問の結果を見る</button>`;
-    document.getElementById("result").innerHTML = html;
-
-    document.getElementById("extraBtn").onclick = function(){
-
-      if(star === "TIE"){
-        star = document.querySelector('input[name="starExtra"]:checked')?.value;
-      }
-      if(heart === "TIE"){
-        heart = document.querySelector('input[name="heartExtra"]:checked')?.value;
-      }
-
-      showFinal(star, heart);
-    };
-
+    document.getElementById("result").innerHTML = "追加質問に対応してください";
     return;
   }
 
   showFinal(star, heart);
 
   function showFinal(star, heart){
+
+    const resultMap = {
+
+      "A_A": `🥀花タイプ｜バラ【☆A】【♡A】
+愛が深く、まっすぐで一度好きになると揺らぎにくいタイプ
+恋の始まり：直感で惹かれやすく一気に気持ちが高まりやすい
+長所：一途・情熱的
+短所：不安になりやすい
+魅力：深い愛情
+👉相手はこの想いをどう感じている？`,
+
+      "A_B": `🏵️花タイプ｜ガーベラ【☆A】【♡B】
+まじめで前向き
+長所：健気・優しい
+短所：尽くしすぎ
+👉優しさはどう伝わってる？`,
+
+      "A_C": `🌺花タイプ｜ダリア【☆A】【♡C】
+静かに深く愛するタイプ
+長所：ブレない愛
+短所：伝わりにくい
+👉気持ちは伝わってる？`,
+
+      "B_A": `🪻花タイプ｜ラベンダー【☆B】【♡A】
+癒し系タイプ
+👉本音を出せてる？`,
+
+      "B_B": `🌼花タイプ｜コスモス【☆B】【♡B】
+バランス型
+👉今の関係満足してる？`,
+
+      "B_C": `🪷花タイプ｜アザミ【☆B】【♡C】
+距離を取りがちなタイプ
+👉心の距離どう感じてる？`,
+
+      "C_A": `🌻花タイプ｜ひまわり【☆C】【♡A】
+ポジティブタイプ
+👉素直さどう受け取られてる？`,
+
+      "C_B": `🌷花タイプ｜チューリップ【☆C】【♡B】
+自然体タイプ
+👉本気度伝わってる？`,
+
+      "C_C": `🌸花タイプ｜さくら【☆C】【♡C】
+繊細で自由
+👉どこまで理解されてる？`
+    };
+
+    const key = `${star}_${heart}`;
+    const text = resultMap[key] || "診断結果を表示できません";
+
     let finalHTML = `
-      <h3>最終診断結果</h3>
-      <p>☆（恋の始まり方） → <strong>${star}</strong></p>
-      <p>♡（理想の関係性） → <strong>${heart}</strong></p>
-      <img src="https://wp.app-clear.com/wp-content/uploads/2025/01/67ad661d3ea9cf282502199c_1765335738.297035_1765335738462-1.png">
+      <h3>あなたの診断結果</h3>
+      <p>☆ → ${star} / ♡ → ${heart}</p>
+
+      <div style="margin-top:15px; padding:12px; background:#fff0f6; border-radius:10px; line-height:1.7;">
+        ${text.replace(/\n/g,"<br>")}
+      </div>
+
+      <div style="margin-top:20px; padding:14px; background:#fff; border:1px dashed #ff8ad6; border-radius:10px;">
+        <p style="margin:0; font-weight:bold; color:#c8007b;">
+          この答えは“診断だけでは不十分です”
+        </p>
+        <p style="margin-top:8px;">
+          あなた専用の答えは鑑定師が読み解きます🔮
+        </p>
+      </div>
+
+      <div style="text-align:center; margin-top:18px;">
+        <a href="https://app-clear.com/open?act=otherprofile-67ad661d3ea9cf282502199c"
+        style="background:#ff5ca8;color:#fff;padding:12px 32px;border-radius:24px;text-decoration:none;font-weight:bold;">
+        鑑定師に答えを聞く
+        </a>
+      </div>
     `;
+
     document.getElementById("result").innerHTML = finalHTML;
   }
+
 });
 </script>
-
-</body>
-</html>
